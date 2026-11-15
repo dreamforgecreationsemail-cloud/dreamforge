@@ -1,0 +1,23 @@
+DREAMFORGE APP STUDIO - FOUNDER EDITION
+========================================
+
+READ THIS FIRST - DO NOT SKIP:
+
+Do NOT double-click anything while you are still looking INSIDE the zip.
+That only opens a Temp folder, and nothing else is there.
+That is why it said it could not find package.json.
+
+DO THIS INSTEAD - 3 STEPS ONLY:
+
+1. Find the zip file. Right-click it. Click Extract All. Click Extract.
+2. Open the NEW folder it makes. You will see package.json in there.
+   Double-click RUN-FOUNDER-EDITION.bat IN THAT NEW FOLDER.
+3. When it says the app is starting, open http://localhost:3000/ in your browser.
+
+That is it. The black window does the install, build, and start for you.
+Keep the black window open while you use the app.
+
+If it says Bun is not installed, it will install it, then ask you to
+double-click the same file one more time. That is normal.
+
+If it stops with an error, copy the error output and open a GitHub issue.
