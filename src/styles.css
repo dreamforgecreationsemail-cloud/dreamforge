@@ -153,7 +153,7 @@
   --metal-dark: oklch(0.22 0.005 270);
   --metal-light: oklch(0.48 0.005 270);
 }
-@theme inline { --font-display: "Bungee", system-ui; --font-sans: "Barlow Condensed", system-ui; }
+@theme inline { --font-display: "Bungee", "Noto Sans Devanagari", "Noto Sans JP", "Noto Sans KR", system-ui, sans-serif; --font-sans: "Barlow Condensed", "Noto Sans Devanagari", "Noto Sans JP", "Noto Sans KR", system-ui, sans-serif; }
 body { font-family: var(--font-sans); }
 .font-display { font-family: var(--font-display); }
 .phone-shell { position: relative; max-width: 480px; margin: 0 auto; min-height: 100vh; overflow-x: hidden; }
@@ -206,4 +206,18 @@ body { font-family: var(--font-sans); }
 .phone-shell a:focus-visible { outline: 2px solid var(--neon-green); outline-offset: 3px; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+
+/* System fonts cover Devanagari, Japanese, and Korean when the display face has no glyphs. */
+.phone-shell { overflow-wrap: break-word; }
+.language-select { font-family: "Barlow Condensed", "Noto Sans Devanagari", "Noto Sans JP", "Noto Sans KR", system-ui, sans-serif; }
+html:lang(hi) body { line-height: 1.65; }
+html:lang(ja) body, html:lang(ko) body { line-height: 1.6; }
+html:lang(ja) .phone-shell, html:lang(ko) .phone-shell { line-break: strict; }
+html:lang(ko) .phone-shell { word-break: keep-all; overflow-wrap: anywhere; }
+html:lang(hi) .font-display, html:lang(ja) .font-display, html:lang(ko) .font-display,
+html:lang(hi) .build-btn, html:lang(ja) .build-btn, html:lang(ko) .build-btn {
+  font-family: system-ui, "Noto Sans Devanagari", "Noto Sans JP", "Noto Sans KR", sans-serif;
+  letter-spacing: 0;
+  line-height: 1.35;
 }

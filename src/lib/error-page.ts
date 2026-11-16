@@ -1,13 +1,32 @@
-export function renderErrorPage(): string {
+import { translate } from "./i18n/catalog";
+import { localesFromAcceptLanguage, resolveLocale } from "./i18n/locale";
+
+function escapeHtml(value: string): string {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+}
+
+export function renderErrorPage(acceptLanguage?: string | null): string {
+  const locale = resolveLocale({
+    stored: null,
+    device: localesFromAcceptLanguage(acceptLanguage),
+  });
+  const title = escapeHtml(translate(locale, "error.pageFailed"));
+  const body = escapeHtml(translate(locale, "error.pageFailedBody"));
+  const retry = escapeHtml(translate(locale, "error.tryAgain"));
+  const home = escapeHtml(translate(locale, "error.goHome"));
   return `<!doctype html>
-<html lang="en">
+<html lang="${escapeHtml(locale)}">
   <head>
     <meta charset="utf-8" />
-    <title>This page didn't load</title>
+    <title>${title}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
-      body { font: 15px/1.5 system-ui, -apple-system, sans-serif; background: #fafafa; color: #111; display: grid; place-items: center; min-height: 100vh; margin: 0; padding: 1.5rem; }
-      .card { max-width: 28rem; width: 100%; text-align: center; padding: 2rem; }
+      body { font: 15px/1.5 system-ui, "Noto Sans Devanagari", "Noto Sans JP", "Noto Sans KR", sans-serif; background: #fafafa; color: #111; display: grid; place-items: center; min-height: 100vh; margin: 0; padding: 1.5rem; }
+      .card { max-width: 28rem; width: 100%; text-align: center; padding: 2rem; overflow-wrap: break-word; }
       h1 { font-size: 1.25rem; margin: 0 0 0.5rem; }
       p { color: #4b5563; margin: 0 0 1.5rem; }
       .actions { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; }
@@ -18,11 +37,11 @@ export function renderErrorPage(): string {
   </head>
   <body>
     <div class="card">
-      <h1>This page didn't load</h1>
-      <p>Something went wrong on our end. You can try refreshing or head back home.</p>
+      <h1>${title}</h1>
+      <p>${body}</p>
       <div class="actions">
-        <button class="primary" onclick="location.reload()">Try again</button>
-        <a class="secondary" href="/">Go home</a>
+        <button class="primary" onclick="location.reload()">${retry}</button>
+        <a class="secondary" href="/">${home}</a>
       </div>
     </div>
   </body>
